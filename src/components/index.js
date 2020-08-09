@@ -9,3 +9,4 @@ export { default as MenuItem } from './menu-item/menu-item.component';
 export { default as SignIn } from './sign-in/sign-in.component';
 export { default as SignUp } from './sign-up/sign-up.component';
 export { default as CartDropdown } from './cart-dropdown/cart-dropdown.component';
+export { default as CartItem } from './cart-item/cart-item.component';
