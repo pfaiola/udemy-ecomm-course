@@ -4,6 +4,7 @@ import './sign-up.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 export default class SignUp extends React.Component {
 
@@ -14,14 +15,35 @@ export default class SignUp extends React.Component {
             email: '',
             password: '',
             confirmPassword: '',
-            name: ''
+            displayName: ''
         };
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
 
-        this.setState({ email: '', password: '', confirmPassword: '', name: ''});
+        const { displayName, email, password, confirmPassword } = this.state;
+
+        if(password !== confirmPassword) {
+            alert("Passwords don't match!");
+            return;
+        }
+
+        try {
+            const { user } = await auth.createUserWithEmailAndPassword(email, password);
+
+            await createUserProfileDocument(user, { displayName });
+            this.setState({
+                email: '',
+                password: '',
+                confirmPassword: '',
+                displayName: ''
+            });
+        } catch (error) {
+            console.error(error);
+        }
+
+        this.setState({ email: '', password: '', confirmPassword: '', displayName: ''});
     }
 
     handleChange = (event) => {
@@ -32,14 +54,14 @@ export default class SignUp extends React.Component {
     render() {
         return (
             <div className="sign-up">
-                <h2>Sign up for an account</h2>
-                <span>Sign in with your email and password</span>
+                <h2 className="title">I don't have an account</h2>
+                <span>Sign up with your email and password</span>
 
-                <form>
+                <form className="sign-up-form" onSubmit={this.handleSubmit}>
                     <FormInput 
-                        name="name" 
+                        name="displayName" 
                         type="text" 
-                        value={this.state.name} 
+                        value={this.state.displayName} 
                         handleChange={this.handleChange}
                         label="Name"
                         required />
