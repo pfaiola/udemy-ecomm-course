@@ -12,3 +12,4 @@ export { default as CartDropdown } from './cart-dropdown/cart-dropdown.component
 export { default as CartItem } from './cart-item/cart-item.component';
 export { default as CheckoutItem } from './checkout-item/checkout-item.component';
 export { default as CollectionOverview } from './collection-overview/collection-overview.component';
+export { default as StripeCheckoutButton} from './stripe-button/stripe-button.component';
