@@ -3,9 +3,7 @@ import React from 'react';
 import { SpinnerContainer, SpinnerOverlay } from './with-spinner.styles';
 
 const WithSpinner = WrappedComponent => {
-  console.log(WrappedComponent);
   const Spinner = ({ isLoading, ...otherProps }) => {
-   // console.log(otherProps);
     return isLoading ? (
       <SpinnerOverlay>
         <SpinnerContainer />
